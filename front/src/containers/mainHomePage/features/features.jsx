@@ -1,4 +1,4 @@
-import { Feature } from '../../../components/main/feature/feature'
+import { Feature } from '../../../components/feature/feature'
 import './features.css'
 import iconChat from '../../../assets/img/iconChat.png'
 import iconMoney from '../../../assets/img/iconMoney.png'

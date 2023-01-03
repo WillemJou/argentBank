@@ -6,3 +6,7 @@
   .main-nav-item:hover {
     text-decoration: underline;
   }
+
+  i {
+    margin-right: 5px;
+  }
