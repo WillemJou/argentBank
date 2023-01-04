@@ -1,3 +1,4 @@
+import { Button } from '../button/button'
 import './form.css'
 
 export function Form() {
@@ -15,7 +16,7 @@ export function Form() {
         <input type="checkbox" id="remember-me" />
         <label htmlFor="remember-me">Remember me</label>
       </div>
-      <button className="sign-in-button">Sign In</button>
+      <Button classes={'sign-in-button'} name="Sign In" />
     </form>
   )
 }
