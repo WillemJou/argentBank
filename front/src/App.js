@@ -4,7 +4,7 @@ import { SignInPage } from './pages/signInPage/signInPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserPage } from './pages/userPage/userPage';
 
-function App() {
+export function App() {
   return (
     < BrowserRouter>
     <Routes>
@@ -18,5 +18,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

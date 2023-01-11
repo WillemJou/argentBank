@@ -1,6 +1,6 @@
 import { Hero } from '../../components/hero'
 import { Features } from './features/features'
-import './main.css'
+import './mainHomePage.css'
 
 export function Main() {
   return (
