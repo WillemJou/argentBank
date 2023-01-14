@@ -9,7 +9,7 @@ const initialState = {
   token: null,
 }
 
-const userAuthSlice = createSlice({
+export const userAuthSlice = createSlice({
    name: 'userAuthInfos',
    initialState,
    reducers: {
@@ -47,3 +47,4 @@ export const {
   addFirstName, 
   logOut
 } = userAuthSlice.actions
+

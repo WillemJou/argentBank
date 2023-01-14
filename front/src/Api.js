@@ -33,3 +33,21 @@ export async function getUserData(token, dispatch){
         }).catch(error => {
             console.log('Error data: ', error)})
 }
+
+export async function changeName(data, token, dispatch) {
+    await axios
+    .put(`${baseApi}/user/profile`, data,
+    {headers: {
+        'Authorization': 'Bearer ' + token
+    }}
+    )
+    .then(response => {
+        if(response.status === 200){
+            dispatch(addFirstName(response.data.body.firstName))
+            dispatch(addLastName(response.data.body.lastName))
+        }
+        return response
+    }).catch(error => {
+        console.log('Error data put name', error)
+    })
+}

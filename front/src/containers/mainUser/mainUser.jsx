@@ -8,19 +8,18 @@ import './mainUser.css'
 
 export function Main() {
   const profileToken = useSelector((state) => state.userAuthInfos.token)
-  console.log(profileToken)
   const firstName = useSelector((state) => state.userAuthInfos.firstName)
   const lastName = useSelector((state) => state.userAuthInfos.lastName)
 
-  let redirectToSignUp = useNavigate()
+  let navTo = useNavigate()
 
   useEffect(() => {
     if (profileToken !== null) {
-      redirectToSignUp('/user')
+      navTo('/user')
     } else {
-      redirectToSignUp('/sign-in')
+      navTo('/sign-in')
     }
-  }, [redirectToSignUp, profileToken])
+  }, [navTo, profileToken])
 
   const dispatch = useDispatch()
   getUserData(profileToken, dispatch)
