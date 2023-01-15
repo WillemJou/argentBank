@@ -15,6 +15,7 @@ export function UserHeader({ firstName, lastName }) {
   }
   function submitName(data) {
     changeName(data, profileToken, dispatch)
+    setShowEditName(false)
   }
 
   return (
@@ -47,11 +48,19 @@ export function UserHeader({ firstName, lastName }) {
                 <button
                   id="buttonSaveName"
                   type="submit"
-                  onClick={() => handleSubmit(changeName)}
+                  onClick={() => {
+                    handleSubmit(changeName)
+                  }}
                 >
                   Save
                 </button>
-                <button id="buttonCancelName">Cancel</button>
+                <button
+                  id="buttonCancelName"
+                  type="button"
+                  onClick={() => setShowEditName(false)}
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </form>
@@ -63,7 +72,7 @@ export function UserHeader({ firstName, lastName }) {
             <br />
             {firstName} {lastName}
           </h1>
-          <Button submit={showForm} classes="edit-button" name="Edit name" />
+          <Button click={showForm} classes="edit-button" name="Edit name" />
         </div>
       )}
     </>

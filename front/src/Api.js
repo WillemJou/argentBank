@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { addToken, addFirstName, addLastName, addId } from './stateManagment/reducer';
+import { Error } from './pages/error/error';
+import { addToken, addFirstName, addLastName, addId, addEmail, addPassword } from './stateManagment/reducer';
 
 const baseApi = `http://localhost:3001/api/v1`
   
@@ -12,8 +13,8 @@ export async function getToken(data, navigate, dispatch){
                 navigate('/user')
             }
     return response.data
-}).catch(error => {
-    console.log('Error data token: ', error)})
+}).catch( error =>  <Error errorName={error} />
+  )
 }
 
 export async function getUserData(token, dispatch){
@@ -49,5 +50,21 @@ export async function changeName(data, token, dispatch) {
         return response
     }).catch(error => {
         console.log('Error data put name', error)
+    })
+}
+
+export async function createUser(data, navigate, dispatch) {
+    await axios.post(`${baseApi}/user/signup`, data)
+    .then(response => {
+        if(response.status === 200){
+            dispatch(addEmail(response.data.body.email))
+            dispatch(addPassword(response.data.body.password))
+            dispatch(addFirstName(response.data.body.firstName))
+            dispatch(addLastName(response.data.body.lastName))
+            navigate("/")
+        }
+        return response
+    }).catch(error => {
+        console.log('Error data create user', error)
     })
 }

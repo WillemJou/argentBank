@@ -1,8 +1,8 @@
 import './button.css'
 
-export function Button({ name, classes, submit }) {
+export function Button({ name, classes, click }) {
   return (
-    <button onClick={submit} className={classes}>
+    <button onClick={click} className={classes}>
       {name}
     </button>
   )

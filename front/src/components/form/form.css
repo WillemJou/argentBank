@@ -1,24 +1,31 @@
 .input-remember {
     display: flex;
   }
-  
   .input-remember label {
     margin-left: 0.25rem;
   }
-  
   .input-wrapper {
     display: flex;
     flex-direction: column;
     text-align: left;
     margin-bottom: 1rem;
   }
-  
   .input-wrapper label {
     font-weight: bold;
   }
-  
   .input-wrapper input {
     padding: 5px;
     font-size: 1.2rem;
   }
-  
+.sign-up-container {
+  display: flex;
+  justify-content: flex-end;
+}
+  .sign-up-button{
+    margin-top: 10px;
+    border: none;
+    color: #2c3e50;
+    font-weight:lighter;
+    text-decoration: none;
+    background-color: transparent;
+  }

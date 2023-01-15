@@ -3,6 +3,7 @@ import { HomePage } from './pages/homepage/homePage'
 import { SignInPage } from './pages/signInPage/signInPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserPage } from './pages/userPage/userPage';
+import { Error } from './pages/error/error';
 
 export function App() {
   return (
@@ -13,6 +14,8 @@ export function App() {
 <Route path="/sign-in" element={<SignInPage  />}>
   </Route>
   <Route path="/user" element={<UserPage  />}>
+  </Route>
+  <Route path="*" element={<Error  />}>
   </Route>
     </Routes>
     </BrowserRouter>
