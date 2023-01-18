@@ -12,6 +12,7 @@ export function Main() {
   const lastName = useSelector((state) => state.userAuthInfos.lastName)
 
   let navTo = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (profileToken !== null) {
@@ -21,8 +22,9 @@ export function Main() {
     }
   }, [navTo, profileToken])
 
-  const dispatch = useDispatch()
-  getUserData(profileToken, dispatch)
+  useEffect(() => {
+    getUserData(profileToken, dispatch)
+  }, [])
 
   return (
     <main className="main bg-dark">

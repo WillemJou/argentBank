@@ -1,10 +1,5 @@
 import './error.css'
 
-export function Error({ errorName }) {
-  return (
-    <div className="error">
-      Error <br />
-      {errorName.message}
-    </div>
-  )
+export function Error({ message }) {
+  return <div className="error">{message}</div>
 }

@@ -13,9 +13,11 @@ export function App() {
 </Route>
 <Route path="/sign-in" element={<SignInPage  />}>
   </Route>
+  <Route path="/sign-up" element={<SignInPage props  />}>
+  </Route>
   <Route path="/user" element={<UserPage  />}>
   </Route>
-  <Route path="*" element={<Error  />}>
+  <Route path="*" element={<Error message={`Error${<br/>}HTTP Request: URL Paths}`} />}>
   </Route>
     </Routes>
     </BrowserRouter>

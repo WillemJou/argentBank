@@ -7,6 +7,7 @@ const initialState = {
   email: null,
   password: null,
   token: null,
+  error: null,
 }
 
 export const userAuthSlice = createSlice({
@@ -30,7 +31,10 @@ export const userAuthSlice = createSlice({
     },
     addToken: (state, action) => {
       state.token = action.payload
-    }},
+    },
+  addError: (state, action) => {
+    state.error = action.payload
+  }},
     logOut() {
       return initialState
    }
@@ -45,6 +49,7 @@ export const {
   addId,
   addLastName,
   addFirstName, 
+  addError,
   logOut
 } = userAuthSlice.actions
 
