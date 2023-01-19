@@ -62,7 +62,6 @@ export async function createUser(data, navigate, dispatch) {
             navigate("/")
         }
         return response
-    }).catch(error => {
-        console.log('Error data create user', error)
-    })
+    }).catch(err => {
+        dispatch(addError((err.response.data.message)))})
 }

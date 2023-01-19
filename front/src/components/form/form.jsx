@@ -28,10 +28,11 @@ export function Form({ props }) {
   }
   async function signUpFormData(data) {
     createUser(data, navigate, dispatch)
-    dispatch(addEmail(data.body.email))
-    dispatch(addPassword(data.body.password))
-    dispatch(addFirstName(data.body.firstName))
-    dispatch(addLastName(data.body.lastName))
+    dispatch(addEmail(data.email))
+    dispatch(addPassword(data.password))
+    dispatch(addFirstName(data.firstName))
+    dispatch(addLastName(data.lastName))
+    dispatch(addError(data.error))
   }
   function rememberMe() {
     let rememberCheck = getValues('remember')
@@ -49,7 +50,7 @@ export function Form({ props }) {
         <form onSubmit={handleSubmit(signUpFormData)}>
           <div className="input-wrapper">
             <label htmlFor="email">Email</label>
-            <input type="text" id="email" {...register('email')} required />
+            <input type="email" id="email" {...register('email')} required />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
@@ -65,6 +66,8 @@ export function Form({ props }) {
             <input
               type="text"
               id="firstName"
+              minLength="2"
+              maxLength="10"
               {...register('firstName')}
               required
             />
@@ -74,10 +77,13 @@ export function Form({ props }) {
             <input
               type="text"
               id="lastName"
+              minLength="2"
+              maxLength="10"
               {...register('lastName')}
               required
             />
           </div>
+          {errormsg ? <Error message={errormsg} /> : null}
           <Button
             classes={'sign-up-submit-button'}
             type="submit"
@@ -95,6 +101,8 @@ export function Form({ props }) {
               <input
                 type="text"
                 id="username"
+                minLength="2"
+                maxLength="10"
                 {...register('email')}
                 required
               />
@@ -104,6 +112,7 @@ export function Form({ props }) {
               <input
                 type="password"
                 id="password"
+                minLength="7"
                 {...register('password')}
                 required
               />

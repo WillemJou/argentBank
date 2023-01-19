@@ -17,7 +17,7 @@ export function App() {
   </Route>
   <Route path="/user" element={<UserPage  />}>
   </Route>
-  <Route path="*" element={<Error message={`Error${<br/>}HTTP Request: URL Paths}`} />}>
+  <Route path="*" element={<Error message={<p>Error{<br/>}HTTP Request: URL Path</p>} />}>
   </Route>
     </Routes>
     </BrowserRouter>
