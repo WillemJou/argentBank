@@ -8,7 +8,7 @@ export async function getToken(data, navigate, dispatch){
   .post(`${baseApi}/user/login`, data)
   .then(response => {
             if(response.status === 200){
-                dispatch(addToken(response.data.body.token))
+                dispatch(addToken(response.data.body.token))        
                 navigate('/user')
             }
     return response.data
@@ -34,7 +34,7 @@ export async function getUserData(token, dispatch){
             dispatch(addError((err.response.data.message)))})
 }
 
-export async function changeName(data, token, dispatch) {
+export async function editName(data, token, dispatch) {
     await axios
     .put(`${baseApi}/user/profile`, data,
     {headers: {

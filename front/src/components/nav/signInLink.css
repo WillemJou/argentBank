@@ -6,16 +6,17 @@
   .main-nav-item:hover {
     text-decoration: underline;
   }
-
-  i {
-    margin-right: 5px;
-  }
-
   .button {
     margin-left: 5px;
     padding: 0;
     background-color: transparent;
     border-style: none;
+  }
+i {
+  margin-right: 5px;
+}
+  .sign-up, .sign-in {
+    margin-left:  5px;
   }
 
   .logout {

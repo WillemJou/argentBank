@@ -1,6 +1,6 @@
 import { Button } from '../button/button'
 import './userHeader.css'
-import { changeName } from '../../Api'
+import { editName } from '../../Api'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ export function UserHeader({ firstName, lastName }) {
     setShowEditName(!showEditName)
   }
   function submitName(data) {
-    changeName(data, profileToken, dispatch)
+    editName(data, profileToken, dispatch)
     setShowEditName(false)
   }
 
@@ -31,6 +31,8 @@ export function UserHeader({ firstName, lastName }) {
                 <input
                   className="inputs"
                   type="text"
+                  minLength="3"
+                  required
                   placeholder={firstName}
                   id="firsName"
                   {...register('firstName')}
@@ -38,6 +40,8 @@ export function UserHeader({ firstName, lastName }) {
                 <label htmlFor="lastName"></label>
                 <input
                   className="inputs"
+                  minLength="3"
+                  required
                   placeholder={lastName}
                   type="text"
                   id="lastName"
@@ -49,7 +53,7 @@ export function UserHeader({ firstName, lastName }) {
                   id="buttonSaveName"
                   type="submit"
                   onClick={() => {
-                    handleSubmit(changeName)
+                    handleSubmit(editName)
                   }}
                 >
                   Save

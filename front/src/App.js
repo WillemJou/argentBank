@@ -13,7 +13,7 @@ export function App() {
 </Route>
 <Route path="/sign-in" element={<SignInPage  />}>
   </Route>
-  <Route path="/sign-up" element={<SignInPage props  />}>
+  <Route path="/sign-up" element={<SignInPage  />}>
   </Route>
   <Route path="/user" element={<UserPage  />}>
   </Route>

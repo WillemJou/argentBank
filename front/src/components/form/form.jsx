@@ -1,6 +1,7 @@
 import { Button } from '../button/button'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+import { toggleOff, toggleOn } from '../../stateManagment/reducer'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { getToken, createUser } from '../../Api'
 import {
@@ -12,16 +13,22 @@ import {
 } from '../../stateManagment/reducer'
 import './form.css'
 import { Error } from '../../pages/error/error'
+import { useEffect } from 'react'
 
-export function Form({ props }) {
-  const { register, handleSubmit, getValues } = useForm()
-  const dispatch = useDispatch()
+export function Form() {
   let navigate = useNavigate()
+  let location = useLocation()
+  const { register, handleSubmit, getValues, setValue } = useForm()
+  const dispatch = useDispatch()
   const errormsg = useSelector((state) => state.userAuthInfos.error)
+  const switchValue = useSelector((state) => state.switch.active)
 
+  const handleChange = () => {
+    !switchValue ? dispatch(toggleOn()) : dispatch(toggleOff())
+  }
   async function signInFormData(data, e) {
-    e.preventDefault()
     getToken(data, navigate, dispatch)
+    e.preventDefault()
     dispatch(addEmail(data.email))
     dispatch(addPassword(data.password))
     dispatch(addError(data.error))
@@ -34,23 +41,45 @@ export function Form({ props }) {
     dispatch(addLastName(data.lastName))
     dispatch(addError(data.error))
   }
-  function rememberMe() {
-    let rememberCheck = getValues('remember')
-    let emailInput = getValues('email')
-    let password = getValues('password')
-    if (rememberCheck !== null) {
-      localStorage.email = emailInput
-      localStorage.password = password
-    }
+  async function rememberMe() {
+    let emailValue = getValues('email')
+    let passwordValue = getValues('password')
+    let email = addEmail(emailValue)
+    let password = addPassword(passwordValue)
+    let emailStored = window.localStorage.setItem(
+      'emailData',
+      JSON.stringify(email)
+    )
+    let passwordStored = window.localStorage.setItem(
+      'passwordData',
+      JSON.stringify(password)
+    )
+    return { emailStored, passwordStored }
   }
+  useEffect(() => {
+    const email = window.localStorage.getItem('emailData')
+    const password = window.localStorage.getItem('passwordData')
+    if (email && password) {
+      const emailValue = JSON.parse(email)
+      const passwordValue = JSON.parse(password)
+      setValue('email', emailValue.payload)
+      setValue('password', passwordValue.payload)
+    }
+  }, [])
 
   return (
     <>
-      {props ? (
+      {location.pathname === '/sign-up' ? (
         <form onSubmit={handleSubmit(signUpFormData)}>
           <div className="input-wrapper">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" {...register('email')} required />
+            <input
+              type="email"
+              id="email"
+              {...register('email')}
+              autoFocus
+              required
+            />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
@@ -101,9 +130,8 @@ export function Form({ props }) {
               <input
                 type="text"
                 id="username"
-                minLength="2"
-                maxLength="10"
                 {...register('email')}
+                autoFocus
                 required
               />
             </div>
@@ -112,7 +140,6 @@ export function Form({ props }) {
               <input
                 type="password"
                 id="password"
-                minLength="7"
                 {...register('password')}
                 required
               />
@@ -124,6 +151,7 @@ export function Form({ props }) {
                 type="checkbox"
                 id="remember-me"
                 name="remember"
+                onClick={handleChange}
                 {...register('remember')}
               />
             </div>
@@ -131,14 +159,15 @@ export function Form({ props }) {
               classes={'sign-in-button'}
               type="submit"
               name="Sign In"
-              click={rememberMe}
+              click={switchValue ? rememberMe : null}
             />
           </form>
           <div className="sign-up-container">
             <Link
-              to={'/sign-up'}
+              to="/sign-up"
               className="sign-up-button"
               type="button"
+              onClick={handleChange}
               name="Sign Up"
             >
               Sign Up

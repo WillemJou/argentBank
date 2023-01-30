@@ -34,10 +34,8 @@ export const userAuthSlice = createSlice({
     },
   addError: (state, action) => {
     state.error = action.payload
-  }},
-    logOut() {
-      return initialState
-   }
+  },},
+
 })
 
 export const reducer = userAuthSlice.reducer
@@ -50,6 +48,33 @@ export const {
   addLastName,
   addFirstName, 
   addError,
-  logOut
 } = userAuthSlice.actions
 
+const initialSwitchState = {
+  active: false,
+}
+ export const switchSlice = createSlice({
+  name: 'switch',
+  initialState: initialSwitchState,
+  reducers: {
+    toggleOn: (state = initialState) => {
+      state.active = true;
+    },
+    toggleOff: (state = initialState) => {
+      state.active = false;
+    }
+  }
+})
+export const switchReducer = switchSlice.reducer
+export const {toggleOn, toggleOff} = switchSlice.actions
+export default switchSlice.reducer
+
+const removePersistSlice = createSlice({
+  name: 'removePersistState',
+  initialState,
+  reducers: {
+    clearResults() {
+    },
+  },
+})
+export const { clearResults } = removePersistSlice.actions
