@@ -69,12 +69,3 @@ export const switchReducer = switchSlice.reducer
 export const {toggleOn, toggleOff} = switchSlice.actions
 export default switchSlice.reducer
 
-const removePersistSlice = createSlice({
-  name: 'removePersistState',
-  initialState,
-  reducers: {
-    clearResults() {
-    },
-  },
-})
-export const { clearResults } = removePersistSlice.actions

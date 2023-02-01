@@ -1,6 +1,5 @@
 import { Button } from '../button/button'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleOff, toggleOn } from '../../stateManagment/reducer'
 import { useNavigate, Link, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { getToken, createUser } from '../../Api'
@@ -10,15 +9,17 @@ import {
   addFirstName,
   addLastName,
   addError,
+  toggleOff,
+  toggleOn,
 } from '../../stateManagment/reducer'
 import './form.css'
 import { Error } from '../../pages/error/error'
-import { useEffect } from 'react'
+import { persistor } from '../../stateManagment/store'
 
 export function Form() {
   let navigate = useNavigate()
   let location = useLocation()
-  const { register, handleSubmit, getValues, setValue } = useForm()
+  const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
   const errormsg = useSelector((state) => state.userAuthInfos.error)
   const switchValue = useSelector((state) => state.switch.active)
@@ -41,31 +42,10 @@ export function Form() {
     dispatch(addLastName(data.lastName))
     dispatch(addError(data.error))
   }
-  async function rememberMe() {
-    let emailValue = getValues('email')
-    let passwordValue = getValues('password')
-    let email = addEmail(emailValue)
-    let password = addPassword(passwordValue)
-    let emailStored = window.localStorage.setItem(
-      'emailData',
-      JSON.stringify(email)
-    )
-    let passwordStored = window.localStorage.setItem(
-      'passwordData',
-      JSON.stringify(password)
-    )
-    return { emailStored, passwordStored }
+
+  async function cancelPersist() {
+    persistor.pause()
   }
-  useEffect(() => {
-    const email = window.localStorage.getItem('emailData')
-    const password = window.localStorage.getItem('passwordData')
-    if (email && password) {
-      const emailValue = JSON.parse(email)
-      const passwordValue = JSON.parse(password)
-      setValue('email', emailValue.payload)
-      setValue('password', passwordValue.payload)
-    }
-  }, [])
 
   return (
     <>
@@ -159,7 +139,7 @@ export function Form() {
               classes={'sign-in-button'}
               type="submit"
               name="Sign In"
-              click={switchValue ? rememberMe : null}
+              click={switchValue ? null : () => cancelPersist()}
             />
           </form>
           <div className="sign-up-container">

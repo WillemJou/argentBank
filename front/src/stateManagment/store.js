@@ -19,9 +19,10 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: [thunk]
 })
-export const persistor = persistStore(store)
+
+ export const persistor = persistStore(store)
 
 export const resetStore = async () => {
   await persistor.purge()
   await persistor.flush()
-};
+}
